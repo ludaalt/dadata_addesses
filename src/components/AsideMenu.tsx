@@ -1,13 +1,21 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import navigationConfig from "../configs/NavigationConfig";
 // @ts-ignore
 import MenuItem from "./MenuItem.tsx";
 
-const StyledMenu = styled.ul`
+const StyledMenu = styled.div`
   padding-top: 25px;
-  max-width: 300px;
+  min-width: 300px;
+  width: 300px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  .activeLink {
+    li {
+      border-right: 3px solid #4f27bf;
+    }
+  }
 `;
 
 const MenuTitle = styled.h3`
@@ -25,9 +33,18 @@ const AsideMenu = () => {
   return (
     <StyledMenu>
       <MenuTitle>Меню</MenuTitle>
-      {navigationConfig.map((menu) => (
-        <MenuItem item={menu} />
-      ))}
+      <ul>
+        {navigationConfig.map((item) => (
+          <NavLink
+            to={`${item.path}`}
+            key={item.key}
+            className={({ isActive }) => (isActive ? "activeLink" : "")}
+            end
+          >
+            <MenuItem key={item.key} item={item} />
+          </NavLink>
+        ))}
+      </ul>
     </StyledMenu>
   );
 };
