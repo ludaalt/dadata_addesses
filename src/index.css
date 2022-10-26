@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Montserrat Bold";
+  src: local("Montserrat Bold"),
+    url(./fonts/montserrat-bold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Montserrat Semibold";
+  src: local("Montserrat Semibold"),
+    url(./fonts/montserrat-semibold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Montserrat Medium";
+  src: local("Montserrat Medium"),
+    url(./fonts/montserrat-medium.woff) format("woff");
+}
