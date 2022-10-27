@@ -18,23 +18,30 @@ const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
+  
+  * {
+    scrollbar-width: 0px;
+  }
 
-  *, html * {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  body {
     scrollbar-width: 6px;
     scrollbar-color: #4F27BF;
   }
 
-  *::-webkit-scrollbar,
-  html *::-webkit-scrollbar {
+  body::-webkit-scrollbar {
     height: 127px;
     width: 6px;
   }
 
-  *::-webkit-scrollbar-thumb,
-  html *::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb {
     background-color: #4F27BF;
     border-radius: 5px;
-  }  
+  }
+  
 `;
 
 const root = ReactDOM.createRoot(
