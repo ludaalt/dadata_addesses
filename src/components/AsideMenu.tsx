@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -5,7 +7,10 @@ import navigationConfig from "../configs/NavigationConfig";
 // @ts-ignore
 import MenuItem from "./MenuItem.tsx";
 
+const BORDERLINE_SCREEN_WIDTH = 768;
+
 const StyledMenu = styled.div`
+  margin-top: 80px;
   padding-top: 25px;
   min-width: 300px;
   width: 300px;
@@ -15,6 +20,11 @@ const StyledMenu = styled.div`
     li {
       border-right: 3px solid #4f27bf;
     }
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    background-color: #fff;
   }
 `;
 
@@ -29,8 +39,33 @@ const MenuTitle = styled.h3`
   color: #1c1c1e;
 `;
 
+const OpenMenuButton = styled.button`
+  border: none;
+  background: none;
+  width: 20px;
+  height: 20px;
+
+  position: absolute;
+  margin-top: 100px;
+`;
+
 const AsideMenu = () => {
-  return (
+  const [isMenuShown, setIsMenuShown] = useState(
+    window.innerWidth > BORDERLINE_SCREEN_WIDTH
+  );
+
+  useEffect(() => {
+    const hideMenu = () => {
+      window.innerWidth > BORDERLINE_SCREEN_WIDTH
+        ? setIsMenuShown(true)
+        : setIsMenuShown(false);
+    };
+
+    window.addEventListener("resize", hideMenu);
+    return () => window.removeEventListener("resize", hideMenu);
+  }, []);
+
+  return isMenuShown ? (
     <StyledMenu>
       <MenuTitle>Меню</MenuTitle>
       <ul>
@@ -46,6 +81,10 @@ const AsideMenu = () => {
         ))}
       </ul>
     </StyledMenu>
+  ) : (
+    <OpenMenuButton onClick={() => setIsMenuShown(true)}>
+      <MenuTitle>Меню</MenuTitle>
+    </OpenMenuButton>
   );
 };
 
