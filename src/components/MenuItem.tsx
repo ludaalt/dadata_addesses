@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 import ExpandMenuIcon from "../assets/expand-menu.svg";
 
-const StyledMenuItem = styled.div`
+const StyledMenuItem = styled.li`
   position: relative;
   cursor: pointer;
   display: flex;
   align-items: center;
+
   padding: 20px 30px;
   font-family: "Montserrat Semibold";
   font-weight: 600;
@@ -15,8 +16,8 @@ const StyledMenuItem = styled.div`
   line-height: 24px;
   color: #1c1c1e;
 
-  li {
-    margin-left: 16px;
+  img {
+    margin-right: 16px;
   }
 
   &:hover {
@@ -50,7 +51,8 @@ const MenuItem = ({ item }: any) => {
     <>
       <StyledMenuItem>
         <img src={item.icon} alt={item.title} width={32} height={32} />
-        <li key={item.key}>{item.title}</li>
+        {item.title}
+
         {item.submenu.length > 0 && (
           <ExpandButton
             expand={isMenuExpand}
@@ -63,7 +65,7 @@ const MenuItem = ({ item }: any) => {
         <ul style={{ marginLeft: "40px" }}>
           {isMenuExpand &&
             item.submenu.map((submenuItem): any => (
-              <MenuItem item={submenuItem} />
+              <MenuItem key={submenuItem.key} item={submenuItem} />
             ))}
         </ul>
       )}
