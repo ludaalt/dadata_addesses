@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -54,6 +53,8 @@ const AsideMenu = () => {
     window.innerWidth > BORDERLINE_SCREEN_WIDTH
   );
 
+  const menu = useRef(null);
+
   useEffect(() => {
     const hideMenu = () => {
       window.innerWidth > BORDERLINE_SCREEN_WIDTH
@@ -61,12 +62,23 @@ const AsideMenu = () => {
         : setIsMenuShown(false);
     };
 
+    const handleOutsideClick = (event) => {
+      if (isMenuShown && menu.current && !menu.current.contains(event.target)) {
+        setIsMenuShown(false);
+      }
+    };
+
     window.addEventListener("resize", hideMenu);
-    return () => window.removeEventListener("resize", hideMenu);
-  }, []);
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("resize", hideMenu);
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isMenuShown]);
 
   return isMenuShown ? (
-    <StyledMenu>
+    <StyledMenu ref={menu}>
       <MenuTitle>Меню</MenuTitle>
       <ul>
         {navigationConfig.map((item) => (
@@ -82,7 +94,7 @@ const AsideMenu = () => {
       </ul>
     </StyledMenu>
   ) : (
-    <OpenMenuButton onClick={() => setIsMenuShown(true)}>
+    <OpenMenuButton onClick={() => setIsMenuShown((oldState) => !oldState)}>
       <MenuTitle>Меню</MenuTitle>
     </OpenMenuButton>
   );
