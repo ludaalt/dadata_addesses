@@ -1,24 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
-
-const Title = styled.h2`
-  font-family: "Montserrat Bold";
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 32px;
-  color: #1c1c1e;
-`;
+import { getData } from "../utils/getData";
+// @ts-ignore
+import AddressesTable from "../components/AddressesTable.tsx";
+import BlockTitle from "../components/BlockTitle";
 
 const SubTitle = styled.p`
-  margin: 16px 0 24px 0;
-
+  margin-bottom: 24px;
   font-family: "Montserrat Medium";
-
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-
   color: #1c1c1e;
 `;
 
@@ -29,19 +23,29 @@ const StyledForm = styled.form`
   input {
     margin-right: 24px;
     flex: 1 0;
-
     border: 3px solid #4f27bf;
     border-radius: 10px;
-
     font-family: "Montserrat Medium";
-
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-
     color: #6c6c6c;
-
     padding-left: 20px;
+
+    padding: 20px;
+  }
+
+  @media (max-width: 1030px) {
+    flex-direction: column;
+
+    input {
+      margin-right: 0px;
+    }
+
+    button {
+      margin-top: 20px;
+      margin-right: auto;
+    }
   }
 `;
 
@@ -69,19 +73,46 @@ const SearchButton = styled.button`
   }
 `;
 
+const Error = styled.p`
+  color: red;
+`;
+
 const AddressesPage = () => {
+  const [error, setError] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  const [addresses, setAddresses] = useState<any>([]);
+
+  const submitHandle = (e) => {
+    e.preventDefault();
+    if (inputValue.length < 3) {
+      setError("Минимальная длина ввода в поле ввода адреса - 3 символа");
+      return;
+    }
+
+    getData(inputValue).then((result) => setAddresses(result));
+  };
+
   return (
     <>
-      <Title>Поиск адресов</Title>
+      <BlockTitle title="Поиск адресов" />
       <SubTitle>Введите интересующий вас адрес</SubTitle>
 
-      <StyledForm>
-        <input placeholder="Введите интересующий вас адрес" />
+      <StyledForm onSubmit={submitHandle}>
+        <input
+          placeholder="Введите интересующий вас адрес"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
         <SearchButton>
           <SearchIcon />
           Поиск
         </SearchButton>
       </StyledForm>
+
+      {error && <Error>{error}</Error>}
+
+      {addresses.length > 0 && <AddressesTable data={addresses.suggestions} />}
     </>
   );
 };
