@@ -10,11 +10,6 @@ import MoneyIcon from "../assets/menu-icons/money.svg";
 import ExitIcon from "../assets/menu-icons/exit.svg";
 
 const mainNavTree = [
-  // {
-  //   key: "main",
-  //   path: `/`,
-  //   title: "Меню",
-  //   submenu: [
   {
     key: "home",
     path: `/`,
@@ -33,7 +28,7 @@ const mainNavTree = [
 
   {
     key: "tables",
-    path: `#`,
+    path: `/tables`,
     title: "Таблицы",
     icon: TableIcon,
     submenu: [],
@@ -41,7 +36,7 @@ const mainNavTree = [
 
   {
     key: "calendar",
-    path: `#`,
+    path: `/calendar`,
     title: "Календарь",
     icon: CalendarIcon,
     submenu: [],
@@ -49,7 +44,7 @@ const mainNavTree = [
 
   {
     key: "maps",
-    path: `#`,
+    path: `/maps`,
     title: "Карты",
     icon: MapIcon,
     submenu: [],
@@ -57,7 +52,7 @@ const mainNavTree = [
 
   {
     key: "widgets",
-    path: `#`,
+    path: `/widgets`,
     title: "Виджеты",
     icon: TvIcon,
     submenu: [],
@@ -65,13 +60,13 @@ const mainNavTree = [
 
   {
     key: "settings",
-    path: `#`,
+    path: `/settings`,
     title: "Настройки",
     icon: SettingsIcon,
     submenu: [
       {
         key: "profile-settings",
-        path: `#`,
+        path: `/profile-settings`,
         title: "Настройки профиля",
         icon: UserIcon,
         submenu: [],
@@ -79,7 +74,7 @@ const mainNavTree = [
 
       {
         key: "money-settings",
-        path: `#`,
+        path: `/money-settings`,
         title: "Управление финансами",
         icon: MoneyIcon,
         submenu: [],
@@ -89,13 +84,11 @@ const mainNavTree = [
 
   {
     key: "exit",
-    path: `#`,
+    path: `/exit`,
     title: "Выход",
     icon: ExitIcon,
     submenu: [],
   },
-  //   ],
-  // },
 ];
 
 const navigationConfig = [...mainNavTree];
