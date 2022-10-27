@@ -29,10 +29,13 @@ const StyledForm = styled.form`
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    color: #6c6c6c;
     padding-left: 20px;
-
     padding: 20px;
+    color: #1c1c1e;
+
+    &::placeholder {
+      color: #6c6c6c;
+    }
   }
 
   @media (max-width: 1030px) {
@@ -82,6 +85,7 @@ const AddressesPage = () => {
   const [inputValue, setInputValue] = useState("");
 
   const [addresses, setAddresses] = useState<any>([]);
+  const [isDataReceived, setIsDataReceived] = useState(false);
 
   const submitHandle = (e) => {
     e.preventDefault();
@@ -91,6 +95,7 @@ const AddressesPage = () => {
     }
 
     getData(inputValue).then((result) => setAddresses(result));
+    setIsDataReceived(true);
   };
 
   return (
@@ -112,7 +117,7 @@ const AddressesPage = () => {
 
       {error && <Error>{error}</Error>}
 
-      {addresses.length > 0 && <AddressesTable data={addresses.suggestions} />}
+      {isDataReceived && <AddressesTable data={addresses.suggestions} />}
     </>
   );
 };

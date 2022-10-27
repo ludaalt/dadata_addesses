@@ -4,6 +4,7 @@ import BlockTitle from "./BlockTitle";
 const StyledAddressesTable = styled.div`
   margin-top: 32px;
   padding: 24px;
+  box-shadow: 0px 2px 8px rgba(2, 0, 97, 0.25);
 `;
 
 const AddressItem = styled.li`
