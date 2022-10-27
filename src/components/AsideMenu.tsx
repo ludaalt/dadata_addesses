@@ -63,7 +63,12 @@ const AsideMenu = () => {
     };
 
     const handleOutsideClick = (event) => {
-      if (isMenuShown && menu.current && !menu.current.contains(event.target)) {
+      if (
+        isMenuShown &&
+        window.innerWidth < BORDERLINE_SCREEN_WIDTH &&
+        menu.current &&
+        !menu.current.contains(event.target)
+      ) {
         setIsMenuShown(false);
       }
     };
@@ -78,7 +83,7 @@ const AsideMenu = () => {
   }, [isMenuShown]);
 
   return isMenuShown ? (
-    <StyledMenu ref={menu}>
+    <StyledMenu ref={menu} style={{ overflowY: "scroll", maxHeight: "100vh" }}>
       <MenuTitle>Меню</MenuTitle>
       <ul>
         {navigationConfig.map((item) => (
