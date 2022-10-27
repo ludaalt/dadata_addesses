@@ -5,6 +5,11 @@ import { ReactComponent as MainLogo } from "../assets/logo.svg";
 import { ReactComponent as UserIcon } from "../assets/person.svg";
 
 const StyledHeader = styled.header`
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 80px;
+
   background-color: #4f27bf;
   padding: 15px 30px;
 
